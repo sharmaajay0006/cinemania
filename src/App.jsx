@@ -13,7 +13,7 @@ function App() {
     })
   };
 
-  return <div className='App'>Appfyfegfyegfhj</div>
+  return <div className='App'>App</div>
 
 }
 
