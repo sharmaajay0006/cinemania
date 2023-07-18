@@ -4,7 +4,7 @@ import './herobanner.scss'
 const Herobanner = () => {
     return (
         <div>
-
+            Herobanner
         </div>
     )
 }
