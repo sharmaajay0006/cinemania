@@ -12,20 +12,29 @@ import Details from './pages/details/Details';
 import Home from './pages/home/Home';
 import Explore from './pages/explore/Explore';
 import SearchResult from './pages/search result page/SearchResult';
+
+
 function App() {
   const dispatch = useDispatch();
   const { url } = useSelector((state) => state.home)
-  useEffect(() => apiTesting(), []);
+  useEffect(() => fetchApiConfig(), []);
 
 
-  const apiTesting = () => {
-    fetchDataFromApi("/movie/popular").then((response) => {
-      console.log(response);
-      dispatch(getApiConfiguration(response));
+  const fetchApiConfig = () => {
+    fetchDataFromApi("/configuration").then((res) => {
+      console.log(res);
+
+      const url = {
+        backdrop: res.images.secure_base_url + "original",
+        poster: res.images.secure_base_url + "original",
+        profile: res.images.secure_base_url + "original",
+      };
+      dispatch(getApiConfiguration(url));
     })
   };
 
   return (<BrowserRouter>
+    <Header />
     <Routes>
       <Route path='/' element={<Home />} />
       <Route path='/:mediaType/:id' element={<Details />} />
@@ -33,6 +42,8 @@ function App() {
       <Route path='/explore/:mediaType' element={<Explore />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
+    <Footer />
+
   </BrowserRouter>)
 
 }
