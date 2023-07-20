@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useFetch from '../../../hooks/useFetch'
 import { useSelector } from 'react-redux'
+import Img from '../../../Components/lazyLoadimage/img'
+import ContentWrapper from '../../../Components/contentWrapper/ContentWrapper'
+
 
 const Herobanner = () => {
     const [background, setBackground] = useState("")
@@ -26,18 +29,23 @@ const Herobanner = () => {
     }
     return (
         <div className="heroBanner">
-            <div className="wrapper">
+
+            {!loading && <div className="backdrop-img">
+                <Img src={background} />
+            </div>}
+            <div className="opacity-layer"></div>
+            <ContentWrapper>
                 <div className="heroBannerContent">
                     <span className="title">Welcome..</span>
-                    <span className="subtitle">Millions of movies,TV shows and people to discover, Explore now.  </span>
-                    <div className="serchInput">
+                    <span className="subTitle">Millions of movies,TV shows and people to discover, Explore now.  </span>
+                    <div className="searchInput">
                         <input type="text" placeholder='Search for movie or TV show'
                             onChange={(event) => setQuery(event.target.value)}
                             onKeyUp={searchQueryHandler} />
                         <button>Search</button>
                     </div>
                 </div>
-            </div>
+            </ContentWrapper>
         </div>
     )
 }
